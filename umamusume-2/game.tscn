@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c8u3i55fmh6tf"]
+
+[node name="Node3D" type="Node3D" unique_id=1598290581]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1458678148]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -65.58057)
+size = Vector3(191, 1, 183.83887)
