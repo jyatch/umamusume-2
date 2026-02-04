@@ -1,63 +1,75 @@
 extends CharacterBody3D
 
-@export var speed: float = 5.0
-@export var jump_velocity: float = 4.5
-@export var mouse_sensitivity: float = 0.001
 
-@onready var hotbar = $Hotbar
-@onready var raycast = $Head/Camera3D/RayCast3D
+@export var mouse_sensitivity: float = 0.001
+@export var player_id: int = 0
+@export var turn_speed := 2.5
+@export var acceleration := 12.0
+@export var deceleration := 16.0
+@export var max_forward_speed := 100.0
+@export var max_backward_speed := 8.0
+
 
 var camera: Camera3D
-var pitch: float = 0.0
+var current_speed := 0.0
+
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera = $Head/Camera3D
-	
-func _unhandled_input(event):
-	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		rotate_y(-event.relative.x * mouse_sensitivity)
-		
-		pitch = clamp(pitch - event.relative.y * mouse_sensitivity, deg_to_rad(-89), deg_to_rad(89))
-		camera.rotation.x = pitch
+
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
+	# Gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-		
-	if Input.is_action_just_pressed("pickup"):
-		if $Head/Camera3D/RayCast3D.is_colliding():
-			var target = $Head/Camera3D/RayCast3D.get_collider()
 	
-	# hotbar controls
-	for i in range(1, 5):
-		if Input.is_action_just_pressed("slot_%d" % i):
-			hotbar.select_slot(i - 1)
+	# Strength of trigger presses
+	var acceleration_trigger_strength := Input.get_action_strength("accelerate_%s" % [player_id])
+	var deceleration_trigger_strength := Input.get_action_strength("decelerate_%s" % [player_id])
 
-	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		# Handle jump.
-		if Input.is_action_just_pressed("jump") and is_on_floor():
-			velocity.y = jump_velocity
-		
-		# Handle mouse escape from game window
-		if Input.is_action_just_pressed("mouse_escape"):
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	# Accelerate / decelerate
+	if acceleration_trigger_strength > 0.0:
+		current_speed += acceleration * acceleration_trigger_strength * delta
+	elif deceleration_trigger_strength > 0.0:
+		current_speed -= deceleration * deceleration_trigger_strength * delta
+	else:
+		current_speed = move_toward(current_speed, 0.0, deceleration * delta)
+
+	# Different max speed for forwards or backwards
+	if current_speed >= 0.0:
+		current_speed = min(current_speed, max_forward_speed)
+	else:
+		current_speed = max(current_speed, -max_backward_speed)
+
+	# Move in facing direction
+	var move_direction := -transform.basis.z
+	velocity.x = move_direction.x * current_speed
+	velocity.z = move_direction.z * current_speed
+
+	# Turning
+	var turn_direction := Input.get_axis("turn_right_%s" % [player_id], "turn_left_%s" % [player_id])
+	if turn_direction != 0:
+		rotate_y(turn_direction * turn_speed * delta)
+
+	move_and_slide()
+
+
+# KEYBOARD AND MOUSE
+# -------------------
+
+
+# allows you to press escape to view mouse cursor
+func _input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed("mouse_escape"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
-		# Handle mouse return to game window
 		if Input.is_action_just_pressed("mouse_capture"):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-	# Get the input direction and handle the movement/deceleration.
-	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	
-	if direction and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		velocity.x = direction.x * speed
-		velocity.z = direction.z * speed
-	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
-		velocity.z = move_toward(velocity.z, 0, speed)
 
-	move_and_slide()
+# mouse camera
+func _unhandled_input(event):
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED and player_id == 1:
+		rotate_y(-event.relative.x * mouse_sensitivity)

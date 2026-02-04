@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d347mcddyn7pw"]
 
 [ext_resource type="Script" uid="uid://bk1p37l4smjie" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="PackedScene" uid="uid://cgfkvoxkrna74" path="res://honse jouster.glb" id="2_onrkg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_onrkg"]
 
@@ -12,10 +13,13 @@ script = ExtResource("1_4flbx")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1505462168]
 shape = SubResource("CapsuleShape3D_onrkg")
 
+[node name="honse jouster" parent="." unique_id=204282331 instance=ExtResource("2_onrkg")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1843621352]
 mesh = SubResource("CapsuleMesh_i3pqv")
 
 [node name="Head" type="Node3D" parent="." unique_id=68095354]
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=1999400200]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7512555, 2.931865, 2.3663282)
