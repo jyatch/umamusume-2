@@ -5,3 +5,25 @@
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1458678148]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -65.58057)
 size = Vector3(191, 1, 183.83887)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2120437565]
+offset_right = 1151.0
+offset_bottom = 652.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="HBoxContainer" unique_id=1570215008]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/SubViewportContainer" unique_id=625874111]
+
+[node name="Camera3D" type="Camera3D" parent="HBoxContainer/SubViewportContainer/SubViewport" unique_id=2086998482]
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="HBoxContainer" unique_id=730081896]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/SubViewportContainer2" unique_id=345095050]
+
+[node name="Camera3D" type="Camera3D" parent="HBoxContainer/SubViewportContainer2/SubViewport" unique_id=193331916]
