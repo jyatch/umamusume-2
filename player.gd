@@ -3,15 +3,15 @@ extends CharacterBody3D
 
 @export var mouse_sensitivity: float = 0.001
 @export var player_id: int = 0
-@export var turn_speed := 2.5
-@export var acceleration := 12.0
-@export var deceleration := 16.0
-@export var max_forward_speed := 100.0
-@export var max_backward_speed := 8.0
+@export var turn_speed = 2.5
+@export var acceleration = 12.0
+@export var deceleration = 16.0
+@export var max_forward_speed = 100.0
+@export var max_backward_speed = 8.0
 
 
 var camera: Camera3D
-var current_speed := 0.0
+var current_speed = 0.0
 
 
 func _ready():
@@ -25,8 +25,8 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	
 	# Strength of trigger presses
-	var acceleration_trigger_strength := Input.get_action_strength("accelerate_%s" % [player_id])
-	var deceleration_trigger_strength := Input.get_action_strength("decelerate_%s" % [player_id])
+	var acceleration_trigger_strength = Input.get_action_strength("accelerate_%s" % [player_id])
+	var deceleration_trigger_strength = Input.get_action_strength("decelerate_%s" % [player_id])
 
 	# Accelerate / decelerate
 	if acceleration_trigger_strength > 0.0:
@@ -43,12 +43,12 @@ func _physics_process(delta: float) -> void:
 		current_speed = max(current_speed, -max_backward_speed)
 
 	# Move in facing direction
-	var move_direction := -transform.basis.z
+	var move_direction = -transform.basis.z
 	velocity.x = move_direction.x * current_speed
 	velocity.z = move_direction.z * current_speed
 
 	# Turning
-	var turn_direction := Input.get_axis("turn_right_%s" % [player_id], "turn_left_%s" % [player_id])
+	var turn_direction = Input.get_axis("turn_right_%s" % [player_id], "turn_left_%s" % [player_id])
 	if turn_direction != 0:
 		rotate_y(turn_direction * turn_speed * delta)
 
