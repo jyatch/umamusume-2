@@ -16,7 +16,7 @@ var current_speed = 0.0
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	camera = $Head/Camera3D
+	camera = $Camera3D
 
 
 func _physics_process(delta: float) -> void:
@@ -56,7 +56,11 @@ func _physics_process(delta: float) -> void:
 	if player_id == 1:
 		var mouse_delta := Input.get_last_mouse_velocity()
 		rotate_y(-mouse_delta.x * mouse_sensitivity * delta)
-
+	
+	# Slow down speed upon collision
+	if is_on_wall():
+		current_speed = move_toward(current_speed, 0.0, deceleration * delta)
+	
 	move_and_slide()
 
 
