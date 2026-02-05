@@ -29,10 +29,38 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -65.58057)
 use_collision = true
 size = Vector3(191, 1, 183.83887)
 
-[node name="Player1" parent="." unique_id=2016653566 instance=ExtResource("1_80nbo")]
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1432845785]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="GridContainer" unique_id=2127805082]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer" unique_id=814369694]
+size = Vector2i(574, 648)
+
+[node name="Player1" parent="GridContainer/SubViewportContainer/SubViewport" unique_id=2016653566 instance=ExtResource("1_80nbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.674038, 0)
 player_id = 1
 
-[node name="Player2" parent="." unique_id=1759772902 instance=ExtResource("1_80nbo")]
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="GridContainer" unique_id=1435273553]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer2" unique_id=562609146]
+handle_input_locally = false
+size = Vector2i(574, 648)
+render_target_update_mode = 4
+
+[node name="Player2" parent="GridContainer/SubViewportContainer2/SubViewport" unique_id=1759772902 instance=ExtResource("1_80nbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9527674, 2.674038, 0)
 player_id = 2
