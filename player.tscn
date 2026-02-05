@@ -14,7 +14,7 @@ script = ExtResource("1_4flbx")
 [node name="honse jouster" parent="." unique_id=1603682272 instance=ExtResource("2_onrkg")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.119060874, -1.1920929e-07, -0.38103712)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1505462168]
+[node name="horse body collision" type="CollisionShape3D" parent="." unique_id=1505462168]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.51763916, -0.37277985)
 shape = SubResource("BoxShape3D_onrkg")
 
