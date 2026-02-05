@@ -33,6 +33,6 @@ size = Vector3(191, 1, 183.83887)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.674038, 0)
 player_id = 1
 
-[node name="Player2" parent="." unique_id=644681915 instance=ExtResource("1_80nbo")]
+[node name="Player2" parent="." unique_id=1759772902 instance=ExtResource("1_80nbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9527674, 2.674038, 0)
 player_id = 2
