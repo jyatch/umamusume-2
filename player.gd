@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 
-@export var mouse_sensitivity: float = 0.001
+@export var mouse_sensitivity: float = 0.00002
 @export var player_id: int = 0
 @export var turn_speed = 2.5
 @export var acceleration = 12.0
@@ -51,12 +51,13 @@ func _physics_process(delta: float) -> void:
 	var turn_direction = Input.get_axis("turn_right_%s" % [player_id], "turn_left_%s" % [player_id])
 	if turn_direction != 0:
 		rotate_y(turn_direction * turn_speed * delta)
+		
+	# Mouse (Player 1 only)
+	if player_id == 1:
+		var mouse_delta := Input.get_last_mouse_velocity()
+		rotate_y(-mouse_delta.x * mouse_sensitivity)
 
 	move_and_slide()
-
-
-# KEYBOARD AND MOUSE
-# -------------------
 
 
 # allows you to press escape to view mouse cursor
@@ -67,9 +68,3 @@ func _input(_event: InputEvent) -> void:
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
 		if Input.is_action_just_pressed("mouse_capture"):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
-
-# mouse camera
-func _unhandled_input(event):
-	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED and player_id == 1:
-		rotate_y(-event.relative.x * mouse_sensitivity)
