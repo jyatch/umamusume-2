@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 
-@export var mouse_sensitivity: float = 0.00002
+@export var mouse_sensitivity: float = 0.0013
 @export var player_id: int = 0
 @export var turn_speed = 2.5
 @export var acceleration = 12.0
@@ -55,7 +55,7 @@ func _physics_process(delta: float) -> void:
 	# Mouse (Player 1 only)
 	if player_id == 1:
 		var mouse_delta := Input.get_last_mouse_velocity()
-		rotate_y(-mouse_delta.x * mouse_sensitivity)
+		rotate_y(-mouse_delta.x * mouse_sensitivity * delta)
 
 	move_and_slide()
 
