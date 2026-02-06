@@ -7,10 +7,11 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_i3pqv"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=2016653566]
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=2016653566 node_paths=PackedStringArray("model")]
 script = ExtResource("1_4flbx")
+model = NodePath("honse jouster")
 
-[node name="honse jouster" parent="." unique_id=1603682272 instance=ExtResource("2_onrkg")]
+[node name="honse jouster" parent="." unique_id=746577815 instance=ExtResource("2_onrkg")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1505462168]

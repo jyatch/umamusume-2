@@ -8,11 +8,14 @@ extends CharacterBody3D
 @export var deceleration = 16.0
 @export var max_forward_speed = 100.0
 @export var max_backward_speed = 8.0
-
+@export var model: Node3D
 
 var camera: Camera3D
 var current_speed = 0.0
 
+enum State {IDLE, WALK, RUN}
+
+var state:State = State.IDLE
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -52,6 +55,14 @@ func _physics_process(delta: float) -> void:
 	if turn_direction != 0:
 		rotate_y(turn_direction * turn_speed * delta)
 		
+	# STATE MACHINE process
+	if current_speed >= 20.0:
+		switch_state(State.RUN)
+	elif current_speed != 0:
+		switch_state(State.WALK)
+	else:
+		switch_state(State.IDLE)
+	
 	# Mouse (Player 1 only)
 	if player_id == 1:
 		var mouse_delta := Input.get_last_mouse_velocity()
@@ -59,7 +70,22 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-
+func switch_state(s: State): #STATE MACHINE switcher
+	if state == s:
+		return
+		
+	state = s
+	match state:
+		State.IDLE:
+			model.playIdleHorse()
+			pass 
+		State.WALK:
+			model.playSlowHorse()
+			pass 
+		State.RUN:
+			model.playFastHorse()
+			pass 
+	
 # allows you to press escape to view mouse cursor
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("mouse_escape"):
