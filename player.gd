@@ -43,7 +43,7 @@ func _ready():
 	slow_down_timer = $TimeSlowDown
 	smash_percentage_panel = $SmashPercentageLabel
 	timer_panel = $TimerPanel
-	death_screen = $"YOU DIED"
+	death_screen = $"Control/YOU DIED"
 	death_screen.modulate.a = 0 # will fade in upon death
 	impact_frame = $Camera3D/Impact
 
