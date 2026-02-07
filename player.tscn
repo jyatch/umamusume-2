@@ -23,6 +23,7 @@ height = 2.08667
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=2016653566 node_paths=PackedStringArray("model") groups=["players"]]
 script = ExtResource("1_4flbx")
 model = NodePath("honse jouster")
+base_knockback = 20.0
 
 [node name="honse jouster" parent="." unique_id=746577815 instance=ExtResource("2_onrkg")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
