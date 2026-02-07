@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c28g5wxo4qsjt"
+path="res://.godot/imported/overhang-round-railing.obj-9fb76a7fa2d34a992c07b32a54e6b7bb.mesh"
+
+[deps]
+
+files=["res://.godot/imported/overhang-round-railing.obj-9fb76a7fa2d34a992c07b32a54e6b7bb.mesh"]
+
+source_file="res://kenney_retro-medieval-kit/Models/OBJ format/overhang-round-railing.obj"
+dest_files=["res://.godot/imported/overhang-round-railing.obj-9fb76a7fa2d34a992c07b32a54e6b7bb.mesh", "res://.godot/imported/overhang-round-railing.obj-9fb76a7fa2d34a992c07b32a54e6b7bb.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

@@ -6,11 +6,15 @@ extends CharacterBody3D
 @export var turn_speed = 2.5
 @export var acceleration = 12.0
 @export var deceleration = 16.0
+@export var wall_deceleration = 50.0
 @export var max_forward_speed = 100.0
 @export var max_backward_speed = 8.0
 @export var model: Node3D
+@export var health = 100.0
+
 
 var camera: Camera3D
+var javelin: Area3D
 var current_speed = 0.0
 
 enum State {IDLE, WALK, RUN}
@@ -19,8 +23,7 @@ var state:State = State.IDLE
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	camera = $Head/Camera3D
-
+	camera = $Camera3D
 
 func _physics_process(delta: float) -> void:
 	# Gravity
@@ -67,7 +70,11 @@ func _physics_process(delta: float) -> void:
 	if player_id == 1:
 		var mouse_delta := Input.get_last_mouse_velocity()
 		rotate_y(-mouse_delta.x * mouse_sensitivity * delta)
-
+	
+	# Slow down speed upon collision
+	if is_on_wall():
+		current_speed = move_toward(current_speed, 0.0, wall_deceleration * delta)
+	
 	move_and_slide()
 
 func switch_state(s: State): #STATE MACHINE switcher
@@ -94,3 +101,9 @@ func _input(_event: InputEvent) -> void:
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
 		if Input.is_action_just_pressed("mouse_capture"):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+
+# player loses health when javelin connects to their hurtbox
+func _on_hurtbox_area_entered(area: Area3D) -> void:
+	health -= 10
+	print("ID: ", player_id, " Health: ", health)

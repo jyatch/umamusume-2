@@ -74,6 +74,12 @@ turn_right_2={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="collisions"
+3d_physics/layer_2="javelin hitbox"
+3d_physics/layer_3="hurtbox"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
