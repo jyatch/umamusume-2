@@ -17,10 +17,12 @@ extends CharacterBody3D
 
 
 var camera: Camera3D
+var out_of_bounds_timer: Timer
 var javelin: Area3D
 var smash_percent = 0
 var current_speed = 0.0
 var knockback_velocity: Vector3 = Vector3.ZERO
+var out_of_bounds = false
 
 enum State {IDLE, WALK, RUN}
 
@@ -29,6 +31,8 @@ var state:State = State.IDLE
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera = $Camera3D
+	out_of_bounds_timer = $OutOfBoundsTimer
+
 
 func _physics_process(delta: float) -> void:
 	# Gravity
@@ -136,3 +140,23 @@ func _on_hurtbox_area_entered(area: Area3D) -> void:
 		var knockback_strength = base_knockback + smash_percent * percent_multiplier
 		knockback_velocity += knockback_dir * knockback_strength
 		print("Smash %:", smash_percent, " Knockback:", knockback_strength)
+
+
+func start_out_of_bounds_timer():
+	if out_of_bounds:
+		return
+	
+	out_of_bounds = true
+	out_of_bounds_timer.start()
+
+
+func cancel_out_of_bounds_timer():
+	if not out_of_bounds:
+		return
+	
+	out_of_bounds = false
+	out_of_bounds_timer.stop()
+
+
+func _on_out_of_bounds_timer_timeout() -> void:
+	print("Player", player_id, "KO'd!")

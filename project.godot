@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 project/assembly_name="Umamusume 2"
 
+[global_group]
+
+players=""
+
 [input]
 
 accelerate_1={
@@ -76,9 +80,10 @@ turn_right_2={
 
 [layer_names]
 
-3d_physics/layer_1="collisions"
+3d_physics/layer_1="world collisions"
 3d_physics/layer_2="javelin hitbox"
-3d_physics/layer_3="hurtbox"
+3d_physics/layer_3="player hurtbox"
+3d_physics/layer_4="arena border"
 
 [physics]
 
