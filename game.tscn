@@ -100,7 +100,7 @@ handle_input_locally = false
 size = Vector2i(574, 648)
 render_target_update_mode = 4
 
-[node name="Player2" parent="GridContainer/SubViewportContainer2/SubViewport" unique_id=412152075 instance=ExtResource("1_80nbo")]
+[node name="Player2" parent="GridContainer/SubViewportContainer2/SubViewport" unique_id=1419856025 instance=ExtResource("1_80nbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7088344, 2.7809315, 0)
 player_id = 2
 
