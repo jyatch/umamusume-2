@@ -1,4 +1,4 @@
-extends Sprite2D
+extends CanvasItem
 
 func fade_in():
 	var tween = create_tween()

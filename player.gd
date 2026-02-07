@@ -15,7 +15,7 @@ extends CharacterBody3D
 @export var percent_multiplier = 0.08
 @export var knockback_decay := 14.0
 @export var slow_motion_ratio = 10.0
-
+@export var speed_meter: SubViewportContainer
 
 var camera: Camera3D
 var out_of_bounds_timer: Timer
@@ -23,7 +23,7 @@ var slow_down_timer: Timer
 var smash_percentage_panel: PanelContainer
 var timer_panel: Panel
 var impact_frame: MeshInstance3D
-var death_screen: Sprite2D
+var death_screen: TextureRect
 var javelin: Area3D
 var smash_percent = 0
 var current_speed = 0.0
@@ -43,7 +43,7 @@ func _ready():
 	slow_down_timer = $TimeSlowDown
 	smash_percentage_panel = $SmashPercentageLabel
 	timer_panel = $TimerPanel
-	death_screen = $"Control/YOU DIED"
+	death_screen = $"Control/MarginContainer/YOU DIED"
 	death_screen.modulate.a = 0 # will fade in upon death
 	impact_frame = $Camera3D/Impact
 
@@ -52,6 +52,7 @@ func _physics_process(delta: float) -> void:
 	# disable controls upon death to force horse death animation
 	if is_dead:
 		return
+
 	
 	# Gravity
 	if not is_on_floor():
@@ -116,9 +117,14 @@ func _physics_process(delta: float) -> void:
 	
 	# Constantly update timer
 	timer_panel.label.text = "TIME: %s" % [snapped(out_of_bounds_timer.time_left, 0.1)]
-
+	
+	#Speed meter update
+	(speed_meter.material as ShaderMaterial).set_shader_parameter("rot_y_deg", max(-current_speed,-85))
+	(speed_meter.get_child(0).get_child(0).get_child(0) as Label).text = str("%0.1f" % current_speed,"")
+	(speed_meter.get_child(0).get_child(0) as Panel).modulate = Color(current_speed/2, current_speed/3, 0)
+	
 	move_and_slide()
-
+	
 func switch_state(s: State): #STATE MACHINE switcher
 	if state == s:
 		return
@@ -165,7 +171,7 @@ func _on_hurtbox_area_entered(area: Area3D) -> void:
 		knockback_dir = knockback_dir.normalized()
 		
 		# Knockback strength
-		var knockback_strength = base_knockback + smash_percent * percent_multiplier
+		var knockback_strength = base_knockback * enemy_speed/30 + smash_percent * percent_multiplier
 		knockback_velocity = knockback_dir * knockback_strength
 		print("Smash %:", smash_percent, " Knockback:", knockback_strength)
 		
