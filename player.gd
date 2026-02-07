@@ -18,6 +18,7 @@ extends CharacterBody3D
 
 var camera: Camera3D
 var out_of_bounds_timer: Timer
+var smash_percentage_panel: PanelContainer
 var javelin: Area3D
 var smash_percent = 0
 var current_speed = 0.0
@@ -32,6 +33,7 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera = $Camera3D
 	out_of_bounds_timer = $OutOfBoundsTimer
+	smash_percentage_panel = $SmashPercentageLabel
 
 
 func _physics_process(delta: float) -> void:
@@ -126,6 +128,7 @@ func _on_hurtbox_area_entered(area: Area3D) -> void:
 	if enemy_speed > 10.0:
 		smash_percent += enemy_speed
 		smash_percent = clamp(smash_percent, 0.0, 300.0)
+		smash_percentage_panel.update_label(smash_percent)
 		
 		# Horizontal knockback direction
 		var knockback_dir = global_position - enemy.global_position

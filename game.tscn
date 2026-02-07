@@ -66,26 +66,6 @@ environment = SubResource("Environment_feb5d")
 transform = Transform3D(-0.8660254, -0.43301278, 0.24999999, -0.30456764, 0.8533846, 0.42305243, -0.39653322, 0.29023218, -0.87093437, 2.4805756, 23.426208, -110.01389)
 shadow_enabled = true
 
-[node name="Arena Border" type="Area3D" parent="." unique_id=1633993916]
-collision_layer = 8
-script = ExtResource("1_vef74")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Arena Border" unique_id=153717735]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.743953, 0)
-shape = SubResource("CylinderShape3D_j5wjh")
-
-[node name="OutOfBoundsTimer" type="Timer" parent="Arena Border" unique_id=2049676374]
-wait_time = 2.5
-one_shot = true
-
-[node name="Floor" type="CSGCylinder3D" parent="." unique_id=1607493488]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.004088402, 0.6088867, -0.005428314)
-use_collision = true
-radius = 534.4966
-height = 0.78222656
-sides = 16
-material = SubResource("StandardMaterial3D_feb5d")
-
 [node name="GridContainer" type="GridContainer" parent="." unique_id=1432845785]
 anchors_preset = 15
 anchor_right = 1.0
@@ -105,7 +85,7 @@ handle_input_locally = false
 size = Vector2i(574, 648)
 render_target_update_mode = 4
 
-[node name="Player1" parent="GridContainer/SubViewportContainer/SubViewport" unique_id=2016653566 groups=["players"] instance=ExtResource("1_80nbo")]
+[node name="Player1" parent="GridContainer/SubViewportContainer/SubViewport" unique_id=2016653566 instance=ExtResource("1_80nbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1272802, 2.7532332, 0)
 player_id = 1
 
@@ -120,9 +100,29 @@ handle_input_locally = false
 size = Vector2i(574, 648)
 render_target_update_mode = 4
 
-[node name="Player2" parent="GridContainer/SubViewportContainer2/SubViewport" unique_id=412152075 groups=["players"] instance=ExtResource("1_80nbo")]
+[node name="Player2" parent="GridContainer/SubViewportContainer2/SubViewport" unique_id=412152075 instance=ExtResource("1_80nbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7088344, 2.7809315, 0)
 player_id = 2
+
+[node name="Arena Border" type="Area3D" parent="." unique_id=1633993916]
+collision_layer = 8
+script = ExtResource("1_vef74")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Arena Border" unique_id=153717735]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.743953, 0)
+shape = SubResource("CylinderShape3D_j5wjh")
+
+[node name="OutOfBoundsTimer" type="Timer" parent="Arena Border" unique_id=2049676374]
+wait_time = 2.5
+one_shot = true
+
+[node name="Floor" type="CSGCylinder3D" parent="." unique_id=1607493488]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.004088402, 0.6088867, -0.005428314)
+use_collision = true
+radius = 534.4966
+height = 0.78222656
+sides = 16
+material = SubResource("StandardMaterial3D_feb5d")
 
 [node name="Fences" type="CSGCombiner3D" parent="." unique_id=1269995977]
 transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, -3.121889, 0)

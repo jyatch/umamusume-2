@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bk1p37l4smjie" path="res://player.gd" id="1_4flbx"]
 [ext_resource type="PackedScene" uid="uid://24bxjki224ga" path="res://honse_jouster.tscn" id="2_onrkg"]
+[ext_resource type="Script" uid="uid://did1mqgthuesn" path="res://smash_percentage_label.gd" id="3_i3pqv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_onrkg"]
 size = Vector3(1, 2.831421, 3.070053)
@@ -66,6 +67,21 @@ debug_color = Color(0.6649005, 0.51248413, 0, 0.41960785)
 [node name="OutOfBoundsTimer" type="Timer" parent="." unique_id=211828369]
 wait_time = 2.5
 one_shot = true
+
+[node name="SmashPercentageLabel" type="PanelContainer" parent="." unique_id=674527510]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+script = ExtResource("3_i3pqv")
+
+[node name="Label" type="Label" parent="SmashPercentageLabel" unique_id=855482187]
+layout_mode = 2
+text = "SMASH: 0.0%"
 
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="timeout" from="OutOfBoundsTimer" to="." method="_on_out_of_bounds_timer_timeout"]
