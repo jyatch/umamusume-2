@@ -6,7 +6,7 @@ extends CharacterBody3D
 @export var turn_speed = 2.5
 @export var acceleration = 12.0
 @export var deceleration = 16.0
-@export var wall_deceleration = 50.0
+@export var wall_deceleration = 150.0
 @export var max_forward_speed = 100.0
 @export var max_backward_speed = 8.0
 @export var model: Node3D
