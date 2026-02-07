@@ -14,12 +14,15 @@ extends CharacterBody3D
 @export var base_knockback = 6.0
 @export var percent_multiplier = 0.08
 @export var knockback_decay := 14.0
+@export var slow_motion_ratio = 10.0
 
 
 var camera: Camera3D
 var out_of_bounds_timer: Timer
+var slow_down_timer: Timer
 var smash_percentage_panel: PanelContainer
 var timer_panel: Panel
+var impact_frame: MeshInstance3D
 var death_screen: Sprite2D
 var javelin: Area3D
 var smash_percent = 0
@@ -27,6 +30,7 @@ var current_speed = 0.0
 var knockback_velocity: Vector3 = Vector3.ZERO
 var out_of_bounds = false
 var is_dead = false
+var control_enabled = true
 
 enum State {IDLE, WALK, RUN}
 
@@ -36,10 +40,12 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera = $Camera3D
 	out_of_bounds_timer = $OutOfBoundsTimer
+	slow_down_timer = $TimeSlowDown
 	smash_percentage_panel = $SmashPercentageLabel
 	timer_panel = $TimerPanel
 	death_screen = $"YOU DIED"
 	death_screen.modulate.a = 0 # will fade in upon death
+	impact_frame = $Camera3D/Impact
 
 
 func _physics_process(delta: float) -> void:
@@ -51,9 +57,12 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
+	var acceleration_trigger_strength = 0
+	var deceleration_trigger_strength = 0
+	if control_enabled:
 	# Strength of trigger presses
-	var acceleration_trigger_strength = Input.get_action_strength("accelerate_%s" % [player_id])
-	var deceleration_trigger_strength = Input.get_action_strength("decelerate_%s" % [player_id])
+		acceleration_trigger_strength = Input.get_action_strength("accelerate_%s" % [player_id])
+		deceleration_trigger_strength = Input.get_action_strength("decelerate_%s" % [player_id])
 
 	# Accelerate / decelerate
 	if acceleration_trigger_strength > 0.0:
@@ -70,8 +79,11 @@ func _physics_process(delta: float) -> void:
 		current_speed = max(current_speed, -max_backward_speed)
 
 	# Move in facing direction
-	var move_direction = -transform.basis.z
-	var move_velocity = move_direction * current_speed
+	var move_direction = 0
+	var move_velocity = 0
+	if control_enabled:
+		move_direction = -transform.basis.z
+		move_velocity = move_direction * current_speed
 
 	velocity.x = move_velocity.x + knockback_velocity.x
 	velocity.z = move_velocity.z + knockback_velocity.z
@@ -154,8 +166,21 @@ func _on_hurtbox_area_entered(area: Area3D) -> void:
 		
 		# Knockback strength
 		var knockback_strength = base_knockback + smash_percent * percent_multiplier
-		knockback_velocity += knockback_dir * knockback_strength
+		knockback_velocity = knockback_dir * knockback_strength
 		print("Smash %:", smash_percent, " Knockback:", knockback_strength)
+		
+			# slow down time and potentially trigger impact frame
+		slow_down_timer.wait_time = clamp((knockback_strength / slow_motion_ratio), 0.01, 0.1)
+		slow_down_timer.start()
+		print(slow_down_timer.wait_time)
+		Engine.set_time_scale(0.1)
+		if knockback_strength > 36.0:
+			impact_frame.visible = true
+		
+		#Invlun + uncontrollable time
+		(get_node("hurtbox") as Area3D).monitoring = false
+		await get_tree().create_timer(0.5).timeout
+		get_node("hurtbox").monitoring = true
 
 
 func start_out_of_bounds_timer():
@@ -181,3 +206,9 @@ func _on_out_of_bounds_timer_timeout() -> void:
 	is_dead = true
 	death_screen.fade_in()
 	model.playDeadHorse()
+
+
+func _on_time_slow_down_timeout() -> void:
+	print("DONE")
+	Engine.set_time_scale(1.0)
+	impact_frame.visible = false

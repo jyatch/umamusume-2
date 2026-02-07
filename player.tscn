@@ -125,6 +125,7 @@ height = 2.08667
 script = ExtResource("1_4flbx")
 model = NodePath("honse jouster")
 base_knockback = 20.0
+slow_motion_ratio = 750.0
 
 [node name="honse jouster" parent="." unique_id=584897036 instance=ExtResource("2_onrkg")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
@@ -171,6 +172,10 @@ debug_color = Color(0.6649005, 0.51248413, 0, 0.41960785)
 
 [node name="OutOfBoundsTimer" type="Timer" parent="." unique_id=211828369]
 wait_time = 2.5
+one_shot = true
+
+[node name="TimeSlowDown" type="Timer" parent="." unique_id=610501093]
+wait_time = 0.1
 one_shot = true
 
 [node name="SmashPercentageLabel" type="PanelContainer" parent="." unique_id=674527510]
@@ -232,3 +237,4 @@ texture = ExtResource("6_1jxqw")
 
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="timeout" from="OutOfBoundsTimer" to="." method="_on_out_of_bounds_timer_timeout"]
+[connection signal="timeout" from="TimeSlowDown" to="." method="_on_time_slow_down_timeout"]
