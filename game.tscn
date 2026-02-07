@@ -88,6 +88,8 @@ render_target_update_mode = 4
 [node name="Player1" parent="GridContainer/SubViewportContainer/SubViewport" unique_id=2016653566 instance=ExtResource("1_80nbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1272802, 2.7532332, 0)
 player_id = 1
+base_knockback = 30.0
+slow_motion_ratio = 550.0
 
 [node name="SubViewportContainer2" type="SubViewportContainer" parent="GridContainer" unique_id=1435273553]
 layout_mode = 2
@@ -103,6 +105,8 @@ render_target_update_mode = 4
 [node name="Player2" parent="GridContainer/SubViewportContainer2/SubViewport" unique_id=412152075 instance=ExtResource("1_80nbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7088344, 2.7809315, 0)
 player_id = 2
+base_knockback = 30.0
+slow_motion_ratio = 550.0
 
 [node name="Arena Border" type="Area3D" parent="." unique_id=1633993916]
 collision_layer = 8

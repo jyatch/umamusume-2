@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://bk1p37l4smjie" path="res://player.gd" id="1_4flbx"]
 [ext_resource type="PackedScene" uid="uid://24bxjki224ga" path="res://honse_jouster.tscn" id="2_onrkg"]
 [ext_resource type="Shader" uid="uid://dbqh41pwqan0a" path="res://impact.gdshader" id="3_dw050"]
-[ext_resource type="Script" uid="uid://did1mqgthuesn" path="res://smash_percentage_label.gd" id="3_i3pqv"]
-[ext_resource type="Script" uid="uid://cdlysrc0a7moe" path="res://timer_panel.gd" id="4_hqtel"]
+[ext_resource type="Script" path="res://smash_percentage_label.gd" id="3_i3pqv"]
+[ext_resource type="Script" path="res://timer_panel.gd" id="4_hqtel"]
 [ext_resource type="Texture2D" uid="uid://dpvtevp4miotb" path="res://dark_souls_death_screen.jpg" id="5_2hs0m"]
 [ext_resource type="Texture2D" uid="uid://dlo3mr26632kq" path="res://Black.png" id="6_1jxqw"]
-[ext_resource type="Script" uid="uid://drilerohto87q" path="res://you_died.gd" id="6_dw050"]
+[ext_resource type="Script" path="res://you_died.gd" id="6_dw050"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_onrkg"]
 size = Vector3(1, 2.831421, 3.070053)
