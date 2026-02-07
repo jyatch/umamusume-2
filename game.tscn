@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://c8u3i55fmh6tf"]
 
 [ext_resource type="PackedScene" uid="uid://d347mcddyn7pw" path="res://player.tscn" id="1_80nbo"]
+[ext_resource type="Texture2D" uid="uid://dwohocnv6e0dn" path="res://kenney_retro-textures-1/PNG/floor_ground_grass.png" id="1_e2o6t"]
+[ext_resource type="Texture2D" uid="uid://ggja41q8gx4b" path="res://kenney_retro-textures-1/PNG/wall_wood_trimsheet.png" id="4_fc0e3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_80nbo"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -15,6 +17,15 @@ sky = SubResource("Sky_e2o6t")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_feb5d"]
+albedo_texture = ExtResource("1_e2o6t")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7jktm"]
+albedo_texture = ExtResource("4_fc0e3")
+uv1_scale = Vector3(1, 20, 1)
+
 [node name="game" type="Node3D" unique_id=1598290581]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1108251820]
@@ -24,10 +35,13 @@ environment = SubResource("Environment_feb5d")
 transform = Transform3D(-0.8660254, -0.43301278, 0.24999999, -0.30456764, 0.8533846, 0.42305243, -0.39653322, 0.29023218, -0.87093437, 2.4805756, 23.426208, -110.01389)
 shadow_enabled = true
 
-[node name="Floor" type="CSGBox3D" parent="." unique_id=1458678148]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -65.58057)
+[node name="Floor" type="CSGCylinder3D" parent="." unique_id=1607493488]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6088867, 0)
 use_collision = true
-size = Vector3(191, 1, 183.83887)
+radius = 534.4966
+height = 0.78222656
+sides = 16
+material = SubResource("StandardMaterial3D_feb5d")
 
 [node name="GridContainer" type="GridContainer" parent="." unique_id=1432845785]
 anchors_preset = 15
@@ -44,10 +58,12 @@ size_flags_vertical = 3
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer" unique_id=814369694]
+handle_input_locally = false
 size = Vector2i(574, 648)
+render_target_update_mode = 4
 
 [node name="Player1" parent="GridContainer/SubViewportContainer/SubViewport" unique_id=2016653566 instance=ExtResource("1_80nbo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.674038, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1272802, 2.7532332, 0)
 player_id = 1
 
 [node name="SubViewportContainer2" type="SubViewportContainer" parent="GridContainer" unique_id=1435273553]
@@ -61,6 +77,90 @@ handle_input_locally = false
 size = Vector2i(574, 648)
 render_target_update_mode = 4
 
-[node name="Player2" parent="GridContainer/SubViewportContainer2/SubViewport" unique_id=1759772902 instance=ExtResource("1_80nbo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9527674, 2.674038, 0)
+[node name="Player2" parent="GridContainer/SubViewportContainer2/SubViewport" unique_id=412152075 instance=ExtResource("1_80nbo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7088344, 2.7809315, 0)
 player_id = 2
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=1269995977]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, -3.121889, 0)
+use_collision = true
+
+[node name="Fence" type="CSGBox3D" parent="CSGCombiner3D" unique_id=481955425]
+transform = Transform3D(0.9803952, 0, -0.19704138, 0, 1, 0, 0.19704138, 0, 0.9803952, 17.279425, 0.78320694, 3.534226)
+size = Vector3(0.091796875, 0.21569824, 6.8428283)
+material = SubResource("StandardMaterial3D_7jktm")
+
+[node name="Fence2" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1659101311]
+transform = Transform3D(0.98231006, 0, 0.18726128, 0, 1, 0, -0.18726128, 0, 0.98231006, 17.30586, 0.78320694, -3.2750163)
+size = Vector3(0.091796875, 0.21569824, 7.2964416)
+material = SubResource("StandardMaterial3D_7jktm")
+
+[node name="Fence3" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1416201878]
+transform = Transform3D(0.83414584, 0, 0.551544, 0, 1, 0, -0.551544, 0, 0.83414584, 14.757823, 0.78320694, -9.669915)
+size = Vector3(0.091796875, 0.21569824, 6.9039583)
+material = SubResource("StandardMaterial3D_7jktm")
+
+[node name="Fence4" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1846584700]
+transform = Transform3D(0.5672546, 0, 0.8235424, 0, 1, 0, -0.8235424, 0, 0.5672546, 10.004819, 0.78320694, -14.478463)
+size = Vector3(0.091796875, 0.21569824, 6.913588)
+material = SubResource("StandardMaterial3D_7jktm")
+
+[node name="Fence5" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1747891373]
+transform = Transform3D(0.19781137, 0, 0.98024005, 0, 1, 0, -0.98024005, 0, 0.19781137, 3.6345148, 0.78320694, -17.155342)
+size = Vector3(0.091796875, 0.21569824, 7.3319125)
+material = SubResource("StandardMaterial3D_7jktm")
+
+[node name="Fence6" type="CSGBox3D" parent="CSGCombiner3D" unique_id=84761789]
+transform = Transform3D(-0.17574465, 0, 0.98443574, 0, 1, 0, -0.98443574, 0, -0.17574465, -3.188881, 0.78320694, -17.275162)
+size = Vector3(0.091796875, 0.21569824, 6.801484)
+material = SubResource("StandardMaterial3D_7jktm")
+
+[node name="Fence7" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1688153812]
+transform = Transform3D(-0.53526664, 0, 0.84468305, 0, 1, 0, -0.84468305, 0, -0.53526664, -9.56468, 0.78320694, -14.733479)
+size = Vector3(0.091796875, 0.21569824, 7.3885202)
+material = SubResource("StandardMaterial3D_7jktm")
+
+[node name="Fence8" type="CSGBox3D" parent="CSGCombiner3D" unique_id=924369208]
+transform = Transform3D(-0.8257537, 0, 0.56403035, 0, 1, 0, -0.56403035, 0, -0.8257537, -14.522991, 0.78320694, -9.947894)
+size = Vector3(0.091796875, 0.21569824, 7.1117973)
+material = SubResource("StandardMaterial3D_7jktm")
+
+[node name="Fence9" type="CSGBox3D" parent="CSGCombiner3D" unique_id=178356981]
+transform = Transform3D(-0.9775629, 0, 0.21064222, 0, 1, 0, -0.21064222, 0, -0.9775629, -17.23965, 0.78320694, -3.5304158)
+size = Vector3(0.091796875, 0.21569824, 7.2748833)
+material = SubResource("StandardMaterial3D_7jktm")
+
+[node name="Fence10" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1892129662]
+transform = Transform3D(-0.98196185, 0, -0.18907836, 0, 1, 0, 0.18907836, 0, -0.98196185, -17.35398, 0.78320694, 3.0232787)
+size = Vector3(0.091796875, 0.21569824, 6.6052833)
+material = SubResource("StandardMaterial3D_7jktm")
+
+[node name="Fence11" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1652876343]
+transform = Transform3D(-0.8509852, 0, -0.5251895, 0, 1, 0, 0.5251895, 0, -0.8509852, -14.785954, 0.78320694, 9.365243)
+size = Vector3(0.091796875, 0.21569824, 7.625076)
+material = SubResource("StandardMaterial3D_7jktm")
+
+[node name="Fence12" type="CSGBox3D" parent="CSGCombiner3D" unique_id=156150105]
+transform = Transform3D(-0.5666938, 0, -0.8239284, 0, 1, 0, 0.8239284, 0, -0.5666938, -9.797495, 0.78320694, 14.616942)
+size = Vector3(0.091796875, 0.21569824, 7.2149196)
+material = SubResource("StandardMaterial3D_7jktm")
+
+[node name="Fence13" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1607893077]
+transform = Transform3D(-0.20251378, 0, -0.97927934, 0, 1, 0, 0.97927934, 0, -0.20251378, -3.507241, 0.78320694, 17.272484)
+size = Vector3(0.091796875, 0.21569824, 7.1528416)
+material = SubResource("StandardMaterial3D_7jktm")
+
+[node name="Fence14" type="CSGBox3D" parent="CSGCombiner3D" unique_id=229581641]
+transform = Transform3D(0.20302662, 0, -0.97917354, 0, 1, 0, 0.97917354, 0, 0.20302662, 3.2633197, 0.78320694, 17.302507)
+size = Vector3(0.091796875, 0.21569824, 6.7734423)
+material = SubResource("StandardMaterial3D_7jktm")
+
+[node name="Fence15" type="CSGBox3D" parent="CSGCombiner3D" unique_id=486242994]
+transform = Transform3D(0.53420496, 0, -0.84535545, 0, 1, 0, 0.84535545, 0, 0.53420496, 9.386533, 0.78320694, 14.816805)
+size = Vector3(0.091796875, 0.21569824, 6.793381)
+material = SubResource("StandardMaterial3D_7jktm")
+
+[node name="Fence16" type="CSGBox3D" parent="CSGCombiner3D" unique_id=2116651630]
+transform = Transform3D(0.817105, 0, -0.5764896, 0, 1, 0, 0.5764896, 0, 0.817105, 14.421935, 0.78320694, 9.937025)
+size = Vector3(0.091796875, 0.21569824, 7.651451)
+material = SubResource("StandardMaterial3D_7jktm")
