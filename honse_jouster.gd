@@ -27,3 +27,4 @@ func playIdleHorse():
 	
 func playDeadHorse():
 	hAnims.play_section("Armature|ArmatureAction",10.2,11.2)
+	kAnims.play_section("ArmatureAction",10.2,11.2)
