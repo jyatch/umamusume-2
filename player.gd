@@ -19,11 +19,14 @@ extends CharacterBody3D
 var camera: Camera3D
 var out_of_bounds_timer: Timer
 var smash_percentage_panel: PanelContainer
+var timer_panel: Panel
+var death_screen: Sprite2D
 var javelin: Area3D
 var smash_percent = 0
 var current_speed = 0.0
 var knockback_velocity: Vector3 = Vector3.ZERO
 var out_of_bounds = false
+var is_dead = false
 
 enum State {IDLE, WALK, RUN}
 
@@ -34,9 +37,16 @@ func _ready():
 	camera = $Camera3D
 	out_of_bounds_timer = $OutOfBoundsTimer
 	smash_percentage_panel = $SmashPercentageLabel
+	timer_panel = $TimerPanel
+	death_screen = $"YOU DIED"
+	death_screen.modulate.a = 0 # will fade in upon death
 
 
 func _physics_process(delta: float) -> void:
+	# disable controls upon death to force horse death animation
+	if is_dead:
+		return
+	
 	# Gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -91,6 +101,9 @@ func _physics_process(delta: float) -> void:
 		
 	# Decay knockback over time
 	knockback_velocity = knockback_velocity.move_toward(Vector3.ZERO, knockback_decay * delta)
+	
+	# Constantly update timer
+	timer_panel.label.text = "TIME: %s" % [snapped(out_of_bounds_timer.time_left, 0.1)]
 
 	move_and_slide()
 
@@ -151,6 +164,7 @@ func start_out_of_bounds_timer():
 	
 	out_of_bounds = true
 	out_of_bounds_timer.start()
+	timer_panel.visible = true
 
 
 func cancel_out_of_bounds_timer():
@@ -159,7 +173,11 @@ func cancel_out_of_bounds_timer():
 	
 	out_of_bounds = false
 	out_of_bounds_timer.stop()
+	timer_panel.visible = false
 
 
 func _on_out_of_bounds_timer_timeout() -> void:
 	print("Player", player_id, "KO'd!")
+	is_dead = true
+	death_screen.fade_in()
+	model.playDeadHorse()

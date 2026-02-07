@@ -9,7 +9,7 @@ func _ready():
 	print("Umamusume!")
 	#knight.get_child(1).physical_bones_start_simulation()
 	#honse.get_child(1).physical_bones_start_simulation()
-		
+
 
 func playFastHorse():
 	kAnims.play_section("ArmatureAction", 2.5,3.9)
@@ -24,3 +24,6 @@ func playIdleHorse():
 	hAnims.seek(0)
 	hAnims.stop()
 	kAnims.stop()
+	
+func playDeadHorse():
+	hAnims.play_section("Armature|ArmatureAction",10.2,11.2)
