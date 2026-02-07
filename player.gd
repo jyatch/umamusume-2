@@ -14,12 +14,15 @@ extends CharacterBody3D
 @export var base_knockback = 6.0
 @export var percent_multiplier = 0.08
 @export var knockback_decay := 14.0
+@export var slow_motion_ratio = 10.0
 
 
 var camera: Camera3D
 var out_of_bounds_timer: Timer
+var slow_down_timer: Timer
 var smash_percentage_panel: PanelContainer
 var timer_panel: Panel
+var impact_frame: MeshInstance3D
 var death_screen: Sprite2D
 var javelin: Area3D
 var smash_percent = 0
@@ -36,10 +39,12 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera = $Camera3D
 	out_of_bounds_timer = $OutOfBoundsTimer
+	slow_down_timer = $TimeSlowDown
 	smash_percentage_panel = $SmashPercentageLabel
 	timer_panel = $TimerPanel
 	death_screen = $"YOU DIED"
 	death_screen.modulate.a = 0 # will fade in upon death
+	impact_frame = $Camera3D/Impact
 
 
 func _physics_process(delta: float) -> void:
@@ -138,6 +143,13 @@ func _on_hurtbox_area_entered(area: Area3D) -> void:
 	var enemy = area.get_parent()
 	var enemy_speed = enemy.current_speed
 	
+	# slow down time and potentially trigger impact frame
+	slow_down_timer.wait_time = clamp((enemy_speed / slow_motion_ratio), 0.01, 0.1)
+	slow_down_timer.start()
+	print(slow_down_timer.wait_time)
+	Engine.set_time_scale(0.1)
+	impact_frame.visible = true
+	
 	if enemy_speed > 10.0:
 		smash_percent += enemy_speed
 		smash_percent = clamp(smash_percent, 0.0, 300.0)
@@ -181,3 +193,9 @@ func _on_out_of_bounds_timer_timeout() -> void:
 	is_dead = true
 	death_screen.fade_in()
 	model.playDeadHorse()
+
+
+func _on_time_slow_down_timeout() -> void:
+	print("DONE")
+	Engine.set_time_scale(1.0)
+	impact_frame.visible = false
