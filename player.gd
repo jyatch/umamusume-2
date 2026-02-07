@@ -11,11 +11,16 @@ extends CharacterBody3D
 @export var max_backward_speed = 8.0
 @export var model: Node3D
 @export var health = 100.0
+@export var base_knockback = 6.0
+@export var percent_multiplier = 0.08
+@export var knockback_decay := 14.0
 
 
 var camera: Camera3D
 var javelin: Area3D
+var smash_percent = 0
 var current_speed = 0.0
+var knockback_velocity: Vector3 = Vector3.ZERO
 
 enum State {IDLE, WALK, RUN}
 
@@ -50,8 +55,11 @@ func _physics_process(delta: float) -> void:
 
 	# Move in facing direction
 	var move_direction = -transform.basis.z
-	velocity.x = move_direction.x * current_speed
-	velocity.z = move_direction.z * current_speed
+	var move_velocity = move_direction * current_speed
+
+	velocity.x = move_velocity.x + knockback_velocity.x
+	velocity.z = move_velocity.z + knockback_velocity.z
+
 
 	# Turning
 	var turn_direction = Input.get_axis("turn_right_%s" % [player_id], "turn_left_%s" % [player_id])
@@ -74,7 +82,10 @@ func _physics_process(delta: float) -> void:
 	# Slow down speed upon collision
 	if is_on_wall():
 		current_speed = move_toward(current_speed, 0.0, wall_deceleration * delta)
-	
+		
+	# Decay knockback over time
+	knockback_velocity = knockback_velocity.move_toward(Vector3.ZERO, knockback_decay * delta)
+
 	move_and_slide()
 
 func switch_state(s: State): #STATE MACHINE switcher
@@ -105,5 +116,23 @@ func _input(_event: InputEvent) -> void:
 
 # player loses health when javelin connects to their hurtbox
 func _on_hurtbox_area_entered(area: Area3D) -> void:
-	health -= 10
-	print("ID: ", player_id, " Health: ", health)
+	var enemy = area.get_parent()
+	var enemy_speed = enemy.current_speed
+	
+	if enemy_speed > 10.0:
+		smash_percent += enemy_speed
+		smash_percent = clamp(smash_percent, 0.0, 300.0)
+		
+		# Horizontal knockback direction
+		var knockback_dir = global_position - enemy.global_position
+		knockback_dir.y = 0.0
+		
+		if knockback_dir.length() == 0:
+			knockback_dir = -transform.basis.z
+		
+		knockback_dir = knockback_dir.normalized()
+		
+		# Knockback strength
+		var knockback_strength = base_knockback + smash_percent * percent_multiplier
+		knockback_velocity += knockback_dir * knockback_strength
+		print("Smash %:", smash_percent, " Knockback:", knockback_strength)
