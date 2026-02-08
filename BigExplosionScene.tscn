@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cjoti4uxrbkvy"]
 
-[ext_resource type="Material" path="res://ExplosionMaterial.tres" id="1_an4hs"]
+[ext_resource type="Material" uid="uid://bwka46s4ielso" path="res://ExplosionMaterial.tres" id="1_an4hs"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rva4e"]
 angle_max = 1.0
@@ -20,6 +20,7 @@ scale_max = 20.0
 [node name="Explosion1" type="GPUParticles3D" parent="." unique_id=446977752]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00112057, -0.00427759, -0.00190479)
 material_override = ExtResource("1_an4hs")
+emitting = false
 amount = 20
 lifetime = 2.13
 explosiveness = 0.91

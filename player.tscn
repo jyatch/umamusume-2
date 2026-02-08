@@ -26,7 +26,7 @@ size = Vector3(2, 2, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_onrkg"]
 radius = 0.43115234
-height = 6.1350555
+height = 12.574364
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i3pqv"]
 size = Vector3(1.2903137, 2.9806519, 3.0393066)
@@ -88,7 +88,7 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="javelin hitbox" unique_id=1571612314]
-transform = Transform3D(0.9929861, 0.11445983, 0.029624462, -0.00679858, -0.19487125, 0.9808053, 0.11803578, -0.97412735, -0.19272627, 0.797824, 1.0000058, -2.7128565)
+transform = Transform3D(0.9929861, 0.11445983, 0.029624462, -0.00679858, -0.19487125, 0.9808053, 0.11803578, -0.97412735, -0.19272627, 1.1663451, 0.37258786, -5.84921)
 shape = SubResource("CapsuleShape3D_onrkg")
 debug_color = Color(0.9607843, 0, 0, 0.41960785)
 
