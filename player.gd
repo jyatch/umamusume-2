@@ -182,6 +182,7 @@ func _on_hurtbox_area_entered(area: Area3D) -> void:
 		Engine.set_time_scale(0.1)
 		if knockback_strength > 36.0:
 			impact_frame.visible = true
+			$Explosion1.emitting = true
 		
 		#Invlun + uncontrollable time
 		(get_node("hurtbox") as Area3D).monitoring = false
