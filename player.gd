@@ -17,6 +17,7 @@ extends CharacterBody3D
 @export var slow_motion_ratio = 10.0
 @export var speed_meter: SubViewportContainer
 
+
 var camera: Camera3D
 var out_of_bounds_timer: Timer
 var slow_down_timer: Timer
@@ -24,6 +25,7 @@ var smash_percentage_panel: PanelContainer
 var timer_panel: Panel
 var impact_frame: MeshInstance3D
 var death_screen: TextureRect
+var gold_ship_sound: AudioStreamPlayer
 var javelin: Area3D
 var smash_percent = 0
 var current_speed = 0.0
@@ -46,6 +48,7 @@ func _ready():
 	death_screen = $"Control/MarginContainer/YOU DIED"
 	death_screen.modulate.a = 0 # will fade in upon death
 	impact_frame = $Camera3D/Impact
+	gold_ship_sound = $GoldShipSound
 
 
 func _physics_process(delta: float) -> void:
@@ -182,6 +185,7 @@ func _on_hurtbox_area_entered(area: Area3D) -> void:
 		Engine.set_time_scale(0.1)
 		if knockback_strength > 36.0:
 			impact_frame.visible = true
+			gold_ship_sound.play()
 		
 		#Invlun + uncontrollable time
 		(get_node("hurtbox") as Area3D).monitoring = false

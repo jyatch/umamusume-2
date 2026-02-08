@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://d1b2712gmnbf5" path="res://kenney_retro-textures-1/PNG/wall_brick_small_stone.png" id="6_j5wjh"]
 [ext_resource type="Texture2D" uid="uid://cd0md0wllemxc" path="res://kenney_retro-textures-1/PNG/roof_clay_red_bottom.png" id="7_vef74"]
 [ext_resource type="Texture2D" uid="uid://df7yscvfltpd" path="res://kenney_retro-textures-1/PNG/timber_square_planks.png" id="8_j5wjh"]
+[ext_resource type="AudioStream" uid="uid://buno32lyke2w7" path="res://01. Elden Ring.mp3" id="10_hve3p"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_80nbo"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -102,7 +103,7 @@ handle_input_locally = false
 size = Vector2i(574, 648)
 render_target_update_mode = 4
 
-[node name="Player2" parent="GridContainer/SubViewportContainer2/SubViewport" unique_id=1419856025 instance=ExtResource("1_80nbo")]
+[node name="Player2" parent="GridContainer/SubViewportContainer2/SubViewport" unique_id=761854094 instance=ExtResource("1_80nbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7088344, 2.7809315, 0)
 player_id = 2
 base_knockback = 30.0
@@ -562,6 +563,10 @@ radius = 0.41259766
 height = 0.2800827
 sides = 3
 material = SubResource("StandardMaterial3D_vef74")
+
+[node name="BGM" type="AudioStreamPlayer" parent="." unique_id=702263686]
+stream = ExtResource("10_hve3p")
+autoplay = true
 
 [connection signal="body_entered" from="Arena Border" to="Arena Border" method="_on_body_entered"]
 [connection signal="body_exited" from="Arena Border" to="Arena Border" method="_on_body_exited"]

@@ -1,8 +1,9 @@
-[gd_scene format=3 uid="uid://bdn0veeu6hnaa"]
+[gd_scene format=3 uid="uid://wuoko27va4sv"]
 
-[ext_resource type="Script" uid="uid://dfxx034f8q22l" path="res://title_screen.gd" id="1_v6p8y"]
+[ext_resource type="Script" path="res://title_screen.gd" id="1_v6p8y"]
 [ext_resource type="PackedScene" uid="uid://24bxjki224ga" path="res://honse_jouster.tscn" id="2_ak2if"]
-[ext_resource type="Script" uid="uid://cwa51ykbge4w6" path="res://sub_viewport_container.gd" id="2_ig5kc"]
+[ext_resource type="Script" path="res://sub_viewport_container.gd" id="2_ig5kc"]
+[ext_resource type="AudioStream" uid="uid://duwaw8lsyedwj" path="res://Helios Rap Remix.mp3" id="4_05l2w"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v6p8y"]
 albedo_color = Color(0, 0, 0, 1)
@@ -149,6 +150,10 @@ shadow_enabled = true
 
 [node name="honse jouster" parent="SubViewportContainer2/SubViewport" unique_id=1270019260 instance=ExtResource("2_ak2if")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, -1.4011575)
+
+[node name="Main Menu Music" type="AudioStreamPlayer" parent="." unique_id=156885339]
+stream = ExtResource("4_05l2w")
+autoplay = true
 
 [connection signal="pressed" from="VBoxContainer/Play Button" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Credits Button" to="." method="_on_credits_button_pressed"]
