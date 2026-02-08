@@ -33,6 +33,7 @@ var knockback_velocity: Vector3 = Vector3.ZERO
 var out_of_bounds = false
 var is_dead = false
 var control_enabled = true
+var back_button: Button
 
 enum State {IDLE, WALK, RUN}
 
@@ -49,6 +50,7 @@ func _ready():
 	death_screen.modulate.a = 0 # will fade in upon death
 	impact_frame = $Camera3D/Impact
 	gold_ship_sound = $GoldShipSound
+	back_button = $BackButton
 
 
 func _physics_process(delta: float) -> void:
@@ -217,9 +219,14 @@ func _on_out_of_bounds_timer_timeout() -> void:
 	is_dead = true
 	death_screen.fade_in()
 	model.playDeadHorse()
+	back_button.visible = true
 
 
 func _on_time_slow_down_timeout() -> void:
 	print("DONE")
 	Engine.set_time_scale(1.0)
 	impact_frame.visible = false
+
+
+func _on_back_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://title_screen.tscn")

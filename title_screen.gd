@@ -10,6 +10,7 @@ func _ready() -> void:
 	play_button = $"VBoxContainer/Play Button"
 	credits_button = $"VBoxContainer/Credits Button"
 	quit_button = $"VBoxContainer/Quit Button"
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 
 func _on_play_button_pressed() -> void:

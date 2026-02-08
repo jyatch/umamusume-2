@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dpvtevp4miotb" path="res://dark_souls_death_screen.jpg" id="5_2hs0m"]
 [ext_resource type="Script" uid="uid://drilerohto87q" path="res://you_died.gd" id="6_dw050"]
 [ext_resource type="Shader" path="res://perspective.gdshader" id="8_dw050"]
-[ext_resource type="Material" path="res://ExplosionMaterial.tres" id="9_b26j0"]
+[ext_resource type="Material" uid="uid://caa3egye33b1r" path="res://ExplosionMaterial.tres" id="9_b26j0"]
 [ext_resource type="AudioStream" uid="uid://vxtnftn8u6h4" path="res://drop-kick-gold-ship-uma-musume_N0UFdAl.mp3" id="10_n7ghd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_onrkg"]
@@ -247,6 +247,18 @@ draw_pass_1 = SubResource("QuadMesh_nvl01")
 [node name="GoldShipSound" type="AudioStreamPlayer" parent="." unique_id=1604861492]
 stream = ExtResource("10_n7ghd")
 
+[node name="BackButton" type="Button" parent="." unique_id=97207761]
+visible = false
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -90.0
+offset_right = 199.0
+grow_vertical = 0
+size_flags_horizontal = 0
+text = "BACK"
+
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="timeout" from="OutOfBoundsTimer" to="." method="_on_out_of_bounds_timer_timeout"]
 [connection signal="timeout" from="TimeSlowDown" to="." method="_on_time_slow_down_timeout"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

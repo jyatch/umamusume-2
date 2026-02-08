@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://wuoko27va4sv"]
 
-[ext_resource type="Script" path="res://title_screen.gd" id="1_v6p8y"]
+[ext_resource type="Script" uid="uid://dfxx034f8q22l" path="res://title_screen.gd" id="1_v6p8y"]
 [ext_resource type="PackedScene" uid="uid://24bxjki224ga" path="res://honse_jouster.tscn" id="2_ak2if"]
 [ext_resource type="Script" path="res://sub_viewport_container.gd" id="2_ig5kc"]
 [ext_resource type="AudioStream" uid="uid://duwaw8lsyedwj" path="res://Helios Rap Remix.mp3" id="4_05l2w"]
@@ -154,6 +154,8 @@ transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0
 [node name="Main Menu Music" type="AudioStreamPlayer" parent="." unique_id=156885339]
 stream = ExtResource("4_05l2w")
 autoplay = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1768425]
 
 [connection signal="pressed" from="VBoxContainer/Play Button" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Credits Button" to="." method="_on_credits_button_pressed"]
