@@ -186,6 +186,7 @@ func _on_hurtbox_area_entered(area: Area3D) -> void:
 		if knockback_strength > 36.0:
 			impact_frame.visible = true
 			gold_ship_sound.play()
+			$Explosion1.emitting = true
 		
 		#Invlun + uncontrollable time
 		(get_node("hurtbox") as Area3D).monitoring = false
