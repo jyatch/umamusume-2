@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://caa3egye33b1r"]
 
-[ext_resource type="Shader" path="res://ExplosionShader.tres" id="1_c4nbu"]
+[ext_resource type="Shader" uid="uid://bncxu2jgpp2gi" path="res://ExplosionShader.tres" id="1_c4nbu"]
 [ext_resource type="Texture2D" uid="uid://cwspr5tgus6xl" path="res://normal+.png" id="2_b2ebq"]
 [ext_resource type="Texture2D" uid="uid://b2on4ersy5s0d" path="res://normal-.png" id="3_rbvhi"]
 [ext_resource type="Texture2D" uid="uid://b1yr7i05kfaal" path="res://smokesprite.png" id="4_254cs"]
