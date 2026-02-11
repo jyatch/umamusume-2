@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://buno32lyke2w7"
+path="res://.godot/imported/01. Elden Ring.mp3-b9e67329a105cb16808ff4c78b822ed3.mp3str"
+
+[deps]
+
+source_file="res://GameScene/01. Elden Ring.mp3"
+dest_files=["res://.godot/imported/01. Elden Ring.mp3-b9e67329a105cb16808ff4c78b822ed3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
