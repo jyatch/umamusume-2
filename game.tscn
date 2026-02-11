@@ -67,47 +67,55 @@ environment = SubResource("Environment_feb5d")
 transform = Transform3D(-0.8660254, -0.43301278, 0.24999999, -0.30456764, 0.8533846, 0.42305243, -0.39653322, 0.29023218, -0.87093437, 2.4805756, 23.426208, -110.01389)
 shadow_enabled = true
 
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1493671283]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="VBoxContainer" unique_id=2127805082]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="VBoxContainer/SubViewportContainer" unique_id=814369694]
+handle_input_locally = false
+size = Vector2i(1152, 322)
+render_target_update_mode = 4
+
+[node name="Player1" parent="VBoxContainer/SubViewportContainer/SubViewport" unique_id=2016653566 instance=ExtResource("1_80nbo")]
+transform = Transform3D(0.014764921, 0, -0.999891, 0, 1, 0, 0.999891, 0, 0.014764921, -40.04419, 2.7532332, 0)
+player_id = 1
+base_knockback = 30.0
+slow_motion_ratio = 550.0
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="VBoxContainer" unique_id=1435273553]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="VBoxContainer/SubViewportContainer2" unique_id=562609146]
+handle_input_locally = false
+size = Vector2i(1152, 322)
+render_target_update_mode = 4
+
+[node name="Player2" parent="VBoxContainer/SubViewportContainer2/SubViewport" unique_id=761854094 instance=ExtResource("1_80nbo")]
+transform = Transform3D(0.13104528, 0, 0.9913764, 0, 1, 0, -0.9913764, 0, 0.13104528, 47.60328, 2.7809315, 0)
+player_id = 2
+base_knockback = 30.0
+slow_motion_ratio = 550.0
+
 [node name="GridContainer" type="GridContainer" parent="." unique_id=1432845785]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 columns = 2
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="GridContainer" unique_id=2127805082]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer" unique_id=814369694]
-handle_input_locally = false
-size = Vector2i(574, 648)
-render_target_update_mode = 4
-
-[node name="Player1" parent="GridContainer/SubViewportContainer/SubViewport" unique_id=2016653566 instance=ExtResource("1_80nbo")]
-transform = Transform3D(0.014764921, 0, -0.999891, 0, 1, 0, 0.999891, 0, 0.014764921, -40.04419, 2.7532332, 0)
-player_id = 1
-base_knockback = 30.0
-slow_motion_ratio = 550.0
-
-[node name="SubViewportContainer2" type="SubViewportContainer" parent="GridContainer" unique_id=1435273553]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="GridContainer/SubViewportContainer2" unique_id=562609146]
-handle_input_locally = false
-size = Vector2i(574, 648)
-render_target_update_mode = 4
-
-[node name="Player2" parent="GridContainer/SubViewportContainer2/SubViewport" unique_id=761854094 instance=ExtResource("1_80nbo")]
-transform = Transform3D(0.13104528, 0, 0.9913764, 0, 1, 0, -0.9913764, 0, 0.13104528, 47.60328, 2.7809315, 0)
-player_id = 2
-base_knockback = 30.0
-slow_motion_ratio = 550.0
 
 [node name="Arena Border" type="Area3D" parent="." unique_id=1633993916]
 collision_layer = 8

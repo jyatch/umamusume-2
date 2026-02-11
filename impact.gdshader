@@ -1,4 +1,4 @@
-shader_type spatial;
+ shader_type spatial;
 render_mode unshaded,vertex_lighting;
 
 uniform sampler2D depth_texture : hint_depth_texture,filter_linear_mipmap;
