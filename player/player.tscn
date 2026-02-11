@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://24bxjki224ga" path="res://player/honse_jouster.tscn" id="2_onrkg"]
 [ext_resource type="Shader" uid="uid://dbqh41pwqan0a" path="res://VFX/impact.gdshader" id="3_dw050"]
 [ext_resource type="Script" uid="uid://did1mqgthuesn" path="res://player/smash_percentage_label.gd" id="3_i3pqv"]
-[ext_resource type="Script" uid="uid://cdlysrc0a7moe" path="res://player/timer_panel.gd" id="4_hqtel"]
 [ext_resource type="Texture2D" uid="uid://dpvtevp4miotb" path="res://player/dark_souls_death_screen.jpg" id="5_2hs0m"]
 [ext_resource type="Script" uid="uid://drilerohto87q" path="res://player/you_died.gd" id="6_dw050"]
 [ext_resource type="Shader" uid="uid://b0dnmxlodfmfp" path="res://VFX/perspective.gdshader" id="8_dw050"]
@@ -149,7 +148,6 @@ offset_bottom = 71.936
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-script = ExtResource("4_hqtel")
 
 [node name="Label" type="Label" parent="TimerPanel" unique_id=1060279336]
 layout_mode = 1
@@ -182,6 +180,7 @@ theme_override_constants/margin_top = 450
 theme_override_constants/margin_bottom = 450
 
 [node name="YOU DIED" type="TextureRect" parent="Control/MarginContainer" unique_id=351428534]
+visible = false
 layout_mode = 2
 texture = ExtResource("5_2hs0m")
 script = ExtResource("6_dw050")

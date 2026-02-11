@@ -22,7 +22,6 @@ var camera: Camera3D
 var out_of_bounds_timer: Timer
 var slow_down_timer: Timer
 var smash_percentage_panel: PanelContainer
-var timer_panel: Panel
 var impact_frame: MeshInstance3D
 var death_screen: TextureRect
 var gold_ship_sound: AudioStreamPlayer
@@ -45,7 +44,6 @@ func _ready():
 	out_of_bounds_timer = $OutOfBoundsTimer
 	slow_down_timer = $TimeSlowDown
 	smash_percentage_panel = $SmashPercentageLabel
-	timer_panel = $TimerPanel
 	death_screen = $"Control/MarginContainer/YOU DIED"
 	death_screen.modulate.a = 0 # will fade in upon death
 	impact_frame = $Camera3D/Impact
@@ -121,7 +119,7 @@ func _physics_process(delta: float) -> void:
 	knockback_velocity = knockback_velocity.move_toward(Vector3.ZERO, knockback_decay * delta)
 	
 	# Constantly update timer
-	timer_panel.label.text = "TIME: %s" % [snapped(out_of_bounds_timer.time_left, 0.1)]
+	$TimerPanel/Label.text = "TIME: %s" % [snapped(out_of_bounds_timer.time_left, 0.1)]
 	
 	#Speed meter update
 	(speed_meter.material as ShaderMaterial).set_shader_parameter("rot_y_deg", max(-current_speed,-85))
@@ -202,7 +200,7 @@ func start_out_of_bounds_timer():
 	
 	out_of_bounds = true
 	out_of_bounds_timer.start()
-	timer_panel.visible = true
+	$TimerPanel.visible = true
 
 
 func cancel_out_of_bounds_timer():
@@ -211,13 +209,14 @@ func cancel_out_of_bounds_timer():
 	
 	out_of_bounds = false
 	out_of_bounds_timer.stop()
-	timer_panel.visible = false
+	$TimerPanel.visible = false
 
 
 func _on_out_of_bounds_timer_timeout() -> void:
 	print("Player", player_id, "KO'd!")
 	is_dead = true
 	death_screen.fade_in()
+	death_screen.visible = true
 	model.playDeadHorse()
 	back_button.visible = true
 
